@@ -1,0 +1,220 @@
+/* Contenedor principal */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem; /* margen interno para pantallas pequeñas */
+  font-family: Arial, sans-serif;
+}
+
+/* Caja */
+.login-box {
+  position: relative;
+  background: #fff;
+  color: black;
+  padding: 2rem;
+  width: 100%;
+  max-width: 380px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: red;
+  font-size: var(--text-4xl);
+  line-height: var(--tw-leading, var(--text-4xl--line-height));
+  cursor: pointer;
+}
+
+/* Título */
+.login-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Botón Google */
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+.google-btn:hover {
+  background: #f1f1f1;
+}
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Separador */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  color: #888;
+}
+.divider span {
+  margin: 0 0.5rem;
+}
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+}
+
+/* Inputs */
+.input-field {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-size: 0.95rem;
+}
+.input-field:focus {
+  border-color: #0070f3;
+}
+
+/* Opciones */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  flex-wrap: wrap; /* se acomoda en pantallas chicas */
+  gap: 0.5rem;
+}
+.remember-me input {
+  margin-right: 0.3rem;
+}
+.forgot-link {
+  color: #0070f3;
+  text-decoration: none;
+}
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+input[type="checkbox"] {
+  accent-color: #2563eb; /* azul tailwind (blue-600) */
+}
+
+.msg-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #dc2626;
+}
+
+/* Botón login */
+/* .login-btn {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  background: #0070f3;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.login-btn:hover {
+  background: #005bb5;
+} */
+
+/* Registro */
+.signup-text {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+.signup-link {
+  color: #0070f3;
+  font-weight: 600;
+  text-decoration: none;
+}
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Volver */
+.return-text {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+.return-link {
+  color: gray;
+  text-decoration: ;
+}
+.return-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+/* Teléfonos muy pequeños */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 1.5rem 1rem;
+  }
+
+  .login-title {
+    font-size: 1.25rem;
+  }
+
+  .input-field {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+
+  .google-btn {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .login-box {
+    max-width: 450px;
+    padding: 2.5rem;
+  }
+
+  .login-title {
+    font-size: 1.75rem;
+  }
+}
+
+/* Desktop grande */
+@media (min-width: 1280px) {
+  .login-box {
+    max-width: 420px;
+  }
+
+  .login-title {
+    font-size: 2rem;
+  }
+}
