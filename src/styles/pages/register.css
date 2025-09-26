@@ -1,0 +1,194 @@
+/* Contenedor general */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  font-family: Arial, sans-serif;
+}
+
+/* Caja */
+.register-box {
+  position: relative;
+  background: #fff;
+  color: black;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Botón de cerrar */
+.close-btn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: red;
+  font-size: var(--text-4xl);
+  line-height: var(--tw-leading, var(--text-4xl--line-height));
+  cursor: pointer;
+}
+
+/* Títulos */
+.register-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: .5rem;
+  color: #333;
+}
+.register-subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* Formulario */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* Filas de formulario */
+.form-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.form-group label {
+  margin-bottom: .3rem;
+  font-size: .9rem;
+  font-weight: bold;
+  color: #333;
+}
+.form-group input,
+.form-group select {
+  padding: .7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: .95rem;
+}
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #0070f3;
+  outline: none;
+}
+
+/* Botón */
+.btn-submit {
+  margin-top: 1rem;
+  width: 100%;
+  padding: .8rem;
+  border: none;
+  background: #0070f3;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background .3s;
+}
+.btn-submit:hover {
+  background: #005bb5;
+}
+
+/* Texto de login */
+.login-text {
+  text-align: center;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: .9rem;
+  color: #555;
+}
+.login-link {
+  color: #0070f3;
+  font-weight: 600;
+  text-decoration: none;
+}
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+/* ---------------- RESPONSIVE ---------------- */
+
+/* Teléfonos muy pequeños (≤480px) */
+@media (max-width: 480px) {
+  .register-box {
+    padding: 1.2rem;
+    max-width: 100%;
+  }
+  .register-title {
+    font-size: 1.5rem;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .form-group input,
+  .form-group select {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+  .btn-submit {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+}
+
+/* Tablets (768px – 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .register-box {
+    max-width: 600px;
+    padding: 2rem 2.5rem;
+  }
+  .register-title {
+    font-size: 1.7rem;
+  }
+  .form-row {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .form-group input,
+  .form-group select {
+    font-size: 1rem;
+  }
+}
+
+/* Ordenadores grandes (≥1280px) */
+@media (min-width: 1280px) {
+  .register-box {
+    max-width: 900px; /* más ancho en pantallas grandes */
+    padding: 3rem;
+  }
+  .register-title {
+    font-size: 2rem;
+  }
+  .register-subtitle {
+    font-size: 1.1rem;
+  }
+  .form-row {
+    gap: 1.5rem;
+  }
+  .form-group label {
+    font-size: 1rem;
+  }
+  .form-group input,
+  .form-group select {
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+  .btn-submit {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+}
+

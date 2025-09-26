@@ -1,0 +1,42 @@
+/* El body usa flex y ocupa toda la altura */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* El contenedor principal crece para empujar el footer */
+main {
+  flex: 1;
+}
+
+/* Footer al fondo */
+.footer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: blue; /* puedes cambiarlo */
+  color: #222;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: #222;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.margin-link {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
