@@ -43,22 +43,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 0.75rem;
+  gap: 8px;
   width: 100%;
+  padding: 10px 16px;
+  background: #fff;
+  border: 1px solid #dadce0;
   border-radius: 8px;
+  color: #3c4043;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   font-weight: 500;
-  transition: background 0.3s;
+  transition: background-color 0.2s ease;
 }
 .google-btn:hover {
-  background: #f1f1f1;
+  background-color: #f7f8f8;
 }
 .google-icon {
-  width: 20px;
-  height: 20px;
+  color: #ea4335; /* Rojo Google */
+  font-size: 18px;
 }
 
 /* Separador */
@@ -129,7 +132,7 @@ input[type="checkbox"] {
 }
 
 /* Botón login */
-/* .login-btn {
+.login-btn {
   width: 100%;
   padding: 0.75rem;
   border: none;
@@ -142,7 +145,7 @@ input[type="checkbox"] {
 }
 .login-btn:hover {
   background: #005bb5;
-} */
+}
 
 /* Registro */
 .signup-text {

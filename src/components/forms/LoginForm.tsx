@@ -1,107 +1,76 @@
-// src/components/forms/LoginForm.tsx
+/**
+ * Componente de formulario de login
+ * Interfaz de usuario para el inicio de sesión
+ * Soporta login con credenciales y Google OAuth
+ */
 
 "use client";
 
-import { signIn, getSession } from "next-auth/react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import clsx from "clsx";
+import { useState, FormEvent } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { signIn } from "next-auth/react";
+import { IoAlertCircleOutline } from "react-icons/io5";
+import { IoLogoGoogle } from "react-icons/io";
 import Link from "next/link";
-import { IoLogoGoogle, IoAlertCircleOutline } from "react-icons/io5";
-import { useRememberMe } from "@/hooks/useRememberMe";
-import { getDashboardUrl } from "@/lib/auth-utils";
-import type { LoginCredentials } from "@/types/auth";
 
-interface LoginFormProps {
-  redirectTo?: string;
-}
+/**
+ * Formulario de inicio de sesión
+ * Utiliza el hook useAuth para manejar la autenticación
+ *
+ * @example
+ * ```tsx
+ * // En app/auth/signin/page.tsx
+ * export default function SignInPage() {
+ *   return <LoginForm />;
+ * }
+ * ```
+ */
+export function LoginForm() {
+  const { login, isLoading } = useAuth();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-export const LoginForm = ({ redirectTo }: LoginFormProps) => {
-  const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  const { rememberMe, savedEmail, toggleRememberMe, saveEmail } = useRememberMe();
-  
-  const [formData, setFormData] = useState<LoginCredentials>({
-    email: savedEmail,
-    password: "",
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
-    
-    // Limpiar error cuando el usuario empiece a escribir
-    if (error) setError('');
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  /**
+   * Maneja el envío del formulario de credenciales
+   */
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
+    setError("");
+    setIsSubmitting(true);
 
-    // Validación básica
-    if (!formData.email || !formData.password) {
-      setError("Por favor, completa todos los campos");
-      setLoading(false);
+    // Validaciones básicas
+    if (!email || !password) {
+      setError("Por favor completa todos los campos");
+      setIsSubmitting(false);
       return;
     }
 
-    try {
-      // Intentar login con NextAuth
-      const result = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
-      });
+    // Intentar login
+    const result = await login(email, password);
 
-      if (result?.error) {
-        setError(result.error);
-        setLoading(false);
-        return;
-      }
-
-      if (result?.ok) {
-        // Guardar email si "Recordarme" está activado
-        if (rememberMe) {
-          saveEmail(formData.email);
-        }
-        
-        // Obtener sesión actualizada para determinar redirección
-        const session = await getSession();
-        
-        if (session?.user) {
-          const dashboardUrl = redirectTo || getDashboardUrl(session.user.role);
-          
-          // Usar window.location para forzar recarga completa
-          window.location.replace(dashboardUrl);
-        } else {
-          // Fallback si no hay sesión
-          router.push(redirectTo || '/student/dashboard');
-        }
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      setError("Error en el servidor. Intenta nuevamente.");
-    } finally {
-      setLoading(false);
+    if (!result.success) {
+      setError(result.error || "Error al iniciar sesión");
+      setIsSubmitting(false);
     }
   };
 
+  /**
+   * Maneja el login con Google
+   */
   const handleGoogleSignIn = async () => {
     try {
-      setLoading(true);
-      await signIn('google', {
-        callbackUrl: redirectTo || '/student/dashboard',
+      setIsSubmitting(true);
+      setError("");
+
+      await signIn("google", {
+        callbackUrl: "/dashboard", // Redirigir al dashboard después del login
+        redirect: true,
       });
-    } catch (error) {
-      console.error("Google sign-in error:", error);
-      setError("Error al conectar con Google");
-      setLoading(false);
+    } catch (err) {
+      setError("Error al iniciar sesión con Google");
+      setIsSubmitting(false);
     }
   };
 
@@ -111,44 +80,35 @@ export const LoginForm = ({ redirectTo }: LoginFormProps) => {
         {/* Campo Email */}
         <div>
           <input
-            type="email"
+            id="email"
             name="email"
-            placeholder="tu@email.com"
-            className="input-field"
-            required
-            disabled={loading}
-            value={formData.email}
-            onChange={handleInputChange}
+            type="email"
             autoComplete="email"
+            className="input-field"
+            placeholder="tu@email.com"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={isSubmitting || isLoading}
           />
         </div>
-
         {/* Campo Contraseña */}
         <div>
           <input
-            type="password"
+            id="password"
             name="password"
-            placeholder="Contraseña"
-            className="input-field"
-            required
-            disabled={loading}
-            value={formData.password}
-            onChange={handleInputChange}
+            type="password"
             autoComplete="current-password"
+            className="input-field"
+            placeholder="Contraseña"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            disabled={isSubmitting || isLoading}
           />
         </div>
-
         {/* Opciones del formulario */}
         <div className="form-options">
-          <label className="remember-me">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={toggleRememberMe}
-              disabled={loading}
-            />
-            {" "}Recordarme
-          </label>
           <Link href="/auth/forgot-password" className="forgot-link">
             ¿Olvidaste tu contraseña?
           </Link>
@@ -163,7 +123,13 @@ export const LoginForm = ({ redirectTo }: LoginFormProps) => {
         )}
 
         {/* Botón de login */}
-        <LoginButton loading={loading} />
+        <button
+          type="submit"
+          disabled={isSubmitting || isLoading}
+          className="login-btn"
+        >
+          {isSubmitting || isLoading ? "Iniciando sesión..." : "Iniciar sesión"}
+        </button>
 
         {/* Divisor */}
         <div className="divider">
@@ -171,15 +137,17 @@ export const LoginForm = ({ redirectTo }: LoginFormProps) => {
         </div>
 
         {/* Botón de Google */}
-        <button 
-          type="button" 
-          className="google-btn" 
-          disabled={loading}
-          onClick={handleGoogleSignIn}
-        >
-          <IoLogoGoogle />
-          Google
-        </button>
+        <div>
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={isSubmitting || isLoading}
+            className="google-btn"
+          >
+            <IoLogoGoogle className="google-icon" />
+            Google
+          </button>
+        </div>
       </form>
 
       {/* Link para registro */}
@@ -190,24 +158,5 @@ export const LoginForm = ({ redirectTo }: LoginFormProps) => {
         </Link>
       </p>
     </>
-  );
-};
-
-interface LoginButtonProps {
-  loading: boolean;
-}
-
-function LoginButton({ loading }: LoginButtonProps) {
-  return (
-    <button
-      type="submit"
-      className={clsx({
-        "btn btn-primary": !loading,
-        "btn btn-disabled": loading,
-      })}
-      disabled={loading}
-    >
-      {loading ? "Iniciando sesión..." : "Ingresar"}
-    </button>
   );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 // import { geistSans, geistMono } from "@/config/fonts";
 import "./globals.css";
-import NextAuthProvider from "@/components/provider/SessionProvider";
+import { SessionProvider } from "@/components";
 
 export const metadata: Metadata = {
   title: "Educasem",
@@ -18,7 +18,7 @@ export default function RootLayout({
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );

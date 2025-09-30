@@ -1,75 +1,97 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import type { User, JWTPayload, AuthError } from '@/types/auth';
+/**
+ * Utilidades para autenticación
+ * Funciones auxiliares para manejo de sesiones y validaciones
+ */
 
-const JWT_SECRET = process.env.NEXTAUTH_SECRET || 'your-super-secret-jwt-key';
-const JWT_EXPIRES_IN = '7d';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/auth/auth.config';
+import type { AuthSession, SessionUser } from '@/types/auth.types';
 
 /**
- * Encripta una contraseña usando bcrypt
+ * Obtiene la sesión del lado del servidor
+ * Útil para Server Components y API Routes
+ * 
+ * @returns Sesión actual o null si no está autenticado
+ * 
+ * @example
+ * ```tsx
+ * // En un Server Component
+ * export default async function ProfilePage() {
+ *   const session = await getSession();
+ *   
+ *   if (!session) {
+ *     redirect('/auth/signin');
+ *   }
+ *   
+ *   return <div>Hola {session.user.name}</div>;
+ * }
+ * ```
  */
-export async function hashPassword(password: string): Promise<string> {
-  const saltRounds = 12;
-  return await bcrypt.hash(password, saltRounds);
+export async function getSession(): Promise<AuthSession | null> {
+  const session = await getServerSession(authOptions);
+  return session as AuthSession | null;
 }
 
 /**
- * Verifica si una contraseña coincide con el hash
+ * Obtiene el usuario actual desde el servidor
+ * 
+ * @returns Usuario autenticado o null
  */
-export async function verifyPassword(password: string, hashedPassword: string): Promise<boolean> {
-  return await bcrypt.compare(password, hashedPassword);
+export async function getCurrentUser(): Promise<SessionUser | null> {
+  const session = await getSession();
+  return session?.user || null;
 }
 
 /**
- * Genera un JWT token para un usuario
+ * Verifica si el usuario está autenticado (servidor)
+ * 
+ * @returns true si está autenticado, false si no
  */
-export function generateAuthToken(user: User): string {
-  const payload: Omit<JWTPayload, 'iat' | 'exp'> = {
-    userId: user.id,
-    email: user.email,
-    role: user.role,
+export async function isAuthenticated(): Promise<boolean> {
+  const session = await getSession();
+  return !!session?.user;
+}
+
+/**
+ * Verifica si el usuario tiene un rol específico
+ * 
+ * @param requiredRole - Rol requerido
+ * @returns true si tiene el rol o superior
+ * 
+ * @example
+ * ```tsx
+ * const canAccess = await hasRole('admin');
+ * if (!canAccess) {
+ *   redirect('/unauthorized');
+ * }
+ * ```
+ */
+export async function hasRole(
+  requiredRole: 'admin' | 'user' | 'guest'
+): Promise<boolean> {
+  const user = await getCurrentUser();
+  
+  if (!user) {
+    return false;
+  }
+
+  const roleHierarchy: Record<string, number> = {
+    guest: 1,
+    user: 2,
+    admin: 3,
   };
 
-  return jwt.sign(payload, JWT_SECRET, {
-    expiresIn: JWT_EXPIRES_IN,
-  });
+  const userRoleLevel = roleHierarchy[user.role] || 0;
+  const requiredRoleLevel = roleHierarchy[requiredRole] || 0;
+
+  return userRoleLevel >= requiredRoleLevel;
 }
 
 /**
- * Verifica y decodifica un JWT token
- */
-export function verifyAuthToken(token: string): JWTPayload | null {
-  try {
-    return jwt.verify(token, JWT_SECRET) as JWTPayload;
-  } catch (error) {
-    console.error('Token verification failed:', error);
-    return null;
-  }
-}
-
-/**
- * Obtiene la URL del dashboard según el rol del usuario
- */
-export function getDashboardUrl(role: string): string {
-  switch (role) {
-    case 'admin':
-      return '/admin/dashboard';
-    case 'instructor':
-      return '/instructor/dashboard';
-    case 'student':
-      return '/student/dashboard';
-    default:
-      return '/student/dashboard';
-  }
-}
-
-// obtiene la URL del sashboard segun el usuario conectado
-// export function getDashboardUrl(user: string): string {
-//       return `/${user}/dashboard`;
-// }
-
-/**
- * Valida el formato de email
+ * Valida formato de email
+ * 
+ * @param email - Email a validar
+ * @returns true si el formato es válido
  */
 export function isValidEmail(email: string): boolean {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -77,34 +99,40 @@ export function isValidEmail(email: string): boolean {
 }
 
 /**
- * Valida la fortaleza de la contraseña
+ * Valida fortaleza de contraseña
+ * 
+ * @param password - Contraseña a validar
+ * @returns Objeto con resultado y mensaje
  */
-export function isValidPassword(password: string): { isValid: boolean; message?: string } {
-  if (password.length < 8) {
-    return { isValid: false, message: 'La contraseña debe tener al menos 8 caracteres' };
+export function validatePassword(password: string): {
+  isValid: boolean;
+  message: string;
+} {
+  if (password.length < 6) {
+    return {
+      isValid: false,
+      message: 'La contraseña debe tener al menos 6 caracteres',
+    };
   }
-  
-  if (!/(?=.*[a-z])/.test(password)) {
-    return { isValid: false, message: 'La contraseña debe contener al menos una letra minúscula' };
-  }
-  
-  if (!/(?=.*[A-Z])/.test(password)) {
-    return { isValid: false, message: 'La contraseña debe contener al menos una letra mayúscula' };
-  }
-  
-  if (!/(?=.*\d)/.test(password)) {
-    return { isValid: false, message: 'La contraseña debe contener al menos un número' };
-  }
-  
-  return { isValid: true };
+
+  // Puedes agregar más validaciones según necesites
+  // Por ejemplo: mayúsculas, minúsculas, números, caracteres especiales
+
+  return {
+    isValid: true,
+    message: 'Contraseña válida',
+  };
 }
 
 /**
- * Crea un objeto de error de autenticación
+ * Sanitiza input del usuario para prevenir XSS
+ * 
+ * @param input - String a sanitizar
+ * @returns String sanitizado
  */
-export function createAuthError(
-  code: AuthError['code'], 
-  message: string
-): AuthError {
-  return { code, message };
+export function sanitizeInput(input: string): string {
+  return input
+    .trim()
+    .replace(/[<>]/g, '') // Remover < y >
+    .substring(0, 255); // Limitar longitud
 }

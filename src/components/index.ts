@@ -6,5 +6,7 @@ export * from './common/Footer'
 export * from './forms/LoginForm'
 // export * from './forms/RegisterFrom'
 
-// --------------- PROVIDER
-export * from './provider/SessionProvider'
+// --------------- AUTH
+export * from './auth/SessionProvider'
+export * from './auth/ProtectedRoute'
+export * from './auth/UserInfo'
