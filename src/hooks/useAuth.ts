@@ -24,9 +24,13 @@ interface UseAuthReturn {
 /**
  * Resultado del intento de login
  */
-interface LoginResult {
+export interface LoginResult {
   success: boolean;
   error?: string;
+  fieldErrors?: {
+    email?: string;
+    password?: string;
+  };
 }
 
 /**
@@ -71,7 +75,7 @@ export function useAuth(): UseAuthReturn {
       if (result?.error) {
         return {
           success: false,
-          error: 'Credenciales inválidas',
+          error: 'Email o contraseña incorrectos',
         };
       }
 
@@ -85,12 +89,12 @@ export function useAuth(): UseAuthReturn {
 
       return {
         success: false,
-        error: 'Error desconocido',
+        error: 'Error al iniciar sesión',
       };
     } catch (error) {
       return {
         success: false,
-        error: 'Error en el servidor',
+        error: 'Error de conexión. Intenta nuevamente',
       };
     }
   };

@@ -67,7 +67,7 @@ export async function isAuthenticated(): Promise<boolean> {
  * ```
  */
 export async function hasRole(
-  requiredRole: 'admin' | 'user' | 'guest'
+  requiredRole: 'admin' | 'tutor' | 'student'
 ): Promise<boolean> {
   const user = await getCurrentUser();
   

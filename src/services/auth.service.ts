@@ -13,7 +13,7 @@ import { User, LoginCredentials, AuthResponse } from '@/types/auth.types';
 const MOCK_USERS: User[] = [
   {
     id: '1',
-    email: 'admin@example.com',
+    email: 'admin@educasem.com',
     name: 'Admin Usuario',
     role: 'admin',
     avatar: 'https://i.pravatar.cc/150?img=1',
@@ -21,16 +21,16 @@ const MOCK_USERS: User[] = [
   },
   {
     id: '2',
-    email: 'user@example.com',
-    name: 'Usuario Normal',
+    email: 'tutor@educasem.com',
+    name: 'Usuario Tutor',
     role: 'tutor',
     avatar: 'https://i.pravatar.cc/150?img=2',
     createdAt: new Date('2024-02-15'),
   },
   {
     id: '3',
-    email: 'guest@example.com',
-    name: 'Usuario Invitado',
+    email: 'student@educasem.com',
+    name: 'Usuario Estudiante',
     role: 'student',
     avatar: 'https://i.pravatar.cc/150?img=3',
     createdAt: new Date('2024-03-20'),
@@ -40,9 +40,9 @@ const MOCK_USERS: User[] = [
 // Contraseñas ficticias (en producción, usar hashing con bcrypt)
 // TODO: Implementar bcrypt.compare() para validar contraseñas hasheadas
 const MOCK_PASSWORDS: Record<string, string> = {
-  'admin@example.com': 'admin123',
-  'user@example.com': 'user123',
-  'guest@example.com': 'guest123',
+  'admin@educasem.com': 'admin123',
+  'tutor@educasem.com': 'tutor123',
+  'student@educasem.com': 'student123',
 };
 
 /**

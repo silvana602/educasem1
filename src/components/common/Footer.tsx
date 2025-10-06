@@ -11,7 +11,6 @@ export const Footer = () => {
       >
         <span className={'antialiased font-bold'}>Educasem </span>
         <span>© { new Date().getFullYear() }</span>
-        <span className='margin-link'></span>
       </Link>
 
       <Link

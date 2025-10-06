@@ -1,7 +1,17 @@
-import '@/styles/pages/home.css'
+import "@/styles/pages/home.css";
 // import { Search } from './ui';
 
-import { IoCheckmarkCircle, IoGlobeOutline, IoLogoFacebook, IoLogoInstagram, IoLogoLinkedin, IoLogoTiktok, IoLogoTwitter, IoLogoYoutube } from "react-icons/io5";
+import {
+  IoCheckmarkCircle,
+  IoGlobeOutline,
+  IoLogoFacebook,
+  IoLogoInstagram,
+  IoLogoLinkedin,
+  IoLogoTiktok,
+  IoLogoTwitter,
+  IoLogoYoutube,
+  IoSearch,
+} from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -30,7 +40,24 @@ export default function HomePage() {
         </section>
 
         {/* Search Section */}
-        {/* <Search /> */}
+        <section className="search-section">
+          <div className="search-container">
+            <label htmlFor="courseSearch" className="search-label">
+              Buscar Curso
+            </label>
+            <div className="search-input-container">
+              <input
+                type="text"
+                id="courseSearch"
+                className="search-input"
+                placeholder="Buscar curso..."
+              />
+              <Link href="/" className="search-button" aria-label="buscar">
+                <IoSearch size={25} />
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {/* Why Study Section */}
         <section className="question-section">
@@ -88,7 +115,7 @@ export default function HomePage() {
         </section>
 
         {/* Popular Courses Section */}
-        <section className="popular-courses-section">
+        <section id="cursos" className="popular-courses-section">
           <div className="section-intro-courses">
             <h2 className="section-title">Nuestros Cursos más Populares</h2>
             <p className="section-description">
@@ -124,7 +151,7 @@ export default function HomePage() {
         </section>
 
         {/* Professionals Section */}
-        <section className="professionals-section">
+        <section id="profesores" className="professionals-section">
           {/* Columna izquierda */}
           <div className="professionals-content">
             <h2 className="section-title">Nuestros Profesionales</h2>
@@ -189,7 +216,7 @@ export default function HomePage() {
         </section>
 
         {/* Pricing Plans Section */}
-        <section className="pricing-section">
+        <section id="planes" className="pricing-section">
           <h2 className="section-title">Los mejores planes</h2>
           <div className="pricing-container">
             <div className="pricing-card featured">
@@ -244,7 +271,7 @@ export default function HomePage() {
         </section>
 
         {/* Contact Section */}
-        <section className="contact-section">
+        <section id="contacto" className="contact-section">
           <div className="contact-container">
             <div className="contact-image">
               <Image
@@ -254,87 +281,87 @@ export default function HomePage() {
                 height={400}
               />
             </div>
-            <div className='contact-content'>
-              <h2 className='contact-title'>Contáctanos</h2>
-              <p className='contact-subtitle'>
+            <div className="contact-content">
+              <h2 className="contact-title">Contáctanos</h2>
+              <p className="contact-subtitle">
                 y síguenos en nuestras redes sociales
               </p>
 
-              <form className='contact-form'>
-                <div className='form-row'>
+              <form className="contact-form">
+                <div className="form-row">
                   <input
                     type="text"
                     placeholder="Nombre"
-                    className='form-input'
+                    className="form-input"
                     required
                   />
                   <input
                     type="email"
                     placeholder="Email"
-                    className='form-input'
+                    className="form-input"
                     required
                   />
                 </div>
                 <textarea
                   placeholder="Mensaje"
-                  className='form-textarea'
+                  className="form-textarea"
                   rows={4}
                   required
                 ></textarea>
 
-                <div className='from-footer'>
-                  <div className='social-links'>
+                <div className="from-footer">
+                  <div className="social-links">
                     <Link
                       href="https://cecasem.com/"
-                      className='social-icon'
+                      className="social-icon"
                       aria-label="Website"
                     >
                       <IoGlobeOutline />
                     </Link>
                     <Link
                       href="https://www.facebook.com/cecasem.bolivia"
-                      className='social-icon'
+                      className="social-icon"
                       aria-label="Facebook"
                     >
                       <IoLogoFacebook />
                     </Link>
                     <Link
                       href="https://www.instagram.com/cecasem_bolivia"
-                      className='social-icon'
+                      className="social-icon"
                       aria-label="Instagram"
                     >
                       <IoLogoInstagram />
                     </Link>
                     <Link
                       href="https://x.com/cecasembol"
-                      className='social-icon'
+                      className="social-icon"
                       aria-label="X"
                     >
                       <IoLogoTwitter /> {/* CAMBIAR ICONO */}
                     </Link>
                     <Link
                       href="https://bo.linkedin.com/company/cecasem"
-                      className='social-icon'
+                      className="social-icon"
                       aria-label="LinkedIn"
                     >
                       <IoLogoLinkedin />
                     </Link>
                     <Link
                       href="https://www.tiktok.com/@cecasembolivia"
-                      className='social-icon'
+                      className="social-icon"
                       aria-label="TikTok"
                     >
                       <IoLogoTiktok />
                     </Link>
                     <Link
                       href="https://www.youtube.com/@cecasembolivia"
-                      className='social-icon'
+                      className="social-icon"
                       aria-label="YouTube"
                     >
                       <IoLogoYoutube />
                     </Link>
                   </div>
-                  <button type="submit" className='submit-button'>
+                  <button type="submit" className="submit-button">
                     Enviar
                   </button>
                 </div>

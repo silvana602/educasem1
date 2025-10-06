@@ -117,7 +117,23 @@
   text-decoration: underline;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
+.input-error {
+  border: 2px solid red !important;
+  outline: none;
+}
+
+.error-text {
+  margin-left: 15px;
+  color: red;
+  font-size: 13px;
+  margin-top: 2px;
+  display: block;
+}
+
+.asterisk {
+  color: red;
+}
+
 /* ---------------- RESPONSIVE ---------------- */
 
 /* Teléfonos muy pequeños (≤480px) */

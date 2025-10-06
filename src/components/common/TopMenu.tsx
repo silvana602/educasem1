@@ -3,13 +3,17 @@
 import Link from "next/link";
 import "@/styles/components/topMenu.css";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 import { signOut } from "next-auth/react";
+import { IoMenuOutline } from "react-icons/io5";
 
 export const TopMenu = () => {
   const { data: session } = useSession();
   console.log({ session });
 
   const isAuthenticated = !!session?.user;
+
+  const userName = session?.user.name;
 
   // const isRole = session?.user.role;
   // if (isRole === "admin") {
@@ -20,56 +24,134 @@ export const TopMenu = () => {
   //   console.log({ isRole });
   // }
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => setIsOpen(false);
+
   return (
-    <nav className="navigation">
-      <div className="logo-box">
+    <>
+      <nav className="navigation">
         {/* Logo */}
-        <div>
+        <div className="logo-box">
           <Link href="/">
             <span className="title-app">Educasem</span>
           </Link>
         </div>
-      </div>
 
-      {/* Menu central */}
-      <div className="hidden sm:block">
-        <Link className="option-menu" href="/">
-          Cursos
-        </Link>
-        <Link className="option-menu" href="/">
-          Profesores
-        </Link>
-        <Link className="option-menu" href="/">
-          Planes
-        </Link>
-        <Link className="option-menu" href="/">
-          Contacto
-        </Link>
-      </div>
+        {/* Menu central DESKTOP */}
+        <div className="menu-desktop">
+          <Link className="option-menu" href="#cursos">
+            Cursos
+          </Link>
+          <Link className="option-menu" href="#profesores">
+            Profesores
+          </Link>
+          <Link className="option-menu" href="#planes">
+            Planes
+          </Link>
+          <Link className="option-menu" href="#contacto">
+            Contacto
+          </Link>
+        </div>
 
-      {/* MOSTRAR BOTONES SI NO ESTA AUTENTICADO | LOGIN & SIGNUP */}
-      {!isAuthenticated && (
-        <>
-          <div className="btn-sesionr">
-            <Link href={"/auth/login"} className="btn-login">
-              Inisiar Sesion
+        {/* BOTONES DESKTOP - SI NO ESTA AUTENTICADO */}
+        {!isAuthenticated && (
+          <div className="buttons-desktop">
+            <Link href={"/login"} className="btn-login">
+              Iniciar Sesión
             </Link>
-
-            <Link href={"/auth/register"} className="btn-signup">
+            <Link href={"/register"} className="btn-signup">
               Registrarse
             </Link>
           </div>
-        </>
-      )}
+        )}
 
-      {/* MOSTRAR BOTON SI ESTA AUTENTICADO | EXIT */}
-      {isAuthenticated && (
-        <div className="btn-sesion" onClick={() => signOut({ callbackUrl: "/" })}>
-          <Link href={"/"} className="btn-exit">
-            Salir
+        {/* BOTON DESKTOP - SI ESTA AUTENTICADO */}
+        {isAuthenticated && (
+          <div className="buttons-desktop">
+            <div className="identity">
+              <span className="usuario">{userName}</span>
+              <span className="separate"> | </span>
+            </div>
+            <div
+              className="btn-sesion"
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
+              <Link href={"/"} className="btn-exit">
+                Salir
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Botón hamburguesa */}
+        <button
+          title="menu-hamburguesa"
+          className="hamburger"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          <IoMenuOutline />
+        </button>
+
+        {/* Menú MÓVIL/TABLET */}
+        <div className={`nav-links ${isOpen ? "active" : ""}`}>
+          {isAuthenticated && (
+            <div className="identity">
+              <span className="usuario user-menu">{userName}</span>
+            </div>
+          )}
+
+          <Link className="option-menu" href="#cursos" onClick={closeMenu}>
+            Cursos
           </Link>
+          <Link className="option-menu" href="#profesores" onClick={closeMenu}>
+            Profesores
+          </Link>
+          <Link className="option-menu" href="#planes" onClick={closeMenu}>
+            Planes
+          </Link>
+          <Link className="option-menu" href="#contacto" onClick={closeMenu}>
+            Contacto
+          </Link>
+
+          {/* Botones en menú móvil */}
+          <div className="btn-sesion">
+            {!isAuthenticated && (
+              <>
+                <Link href={"/login"} className="btn-login" onClick={closeMenu}>
+                  Iniciar Sesión
+                </Link>
+                <Link
+                  href={"/register"}
+                  className="btn-signup"
+                  onClick={closeMenu}
+                >
+                  Registrarse
+                </Link>
+              </>
+            )}
+
+            {isAuthenticated && (
+              <Link
+                href={"/"}
+                className="btn-exit"
+                onClick={() => {
+                  closeMenu();
+                  signOut({ callbackUrl: "/" });
+                }}
+              >
+                Salir
+              </Link>
+            )}
+          </div>
         </div>
-      )}
-    </nav>
+      </nav>
+
+      {/* Overlay borroso */}
+      <div
+        className={`menu-overlay ${isOpen ? "active" : ""}`}
+        onClick={closeMenu}
+      />
+    </>
   );
 };

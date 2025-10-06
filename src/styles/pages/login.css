@@ -96,6 +96,59 @@
   border-color: #0070f3;
 }
 
+/* Input con error - borde rojo */
+.input-field.input-error {
+  border-color: #ef4444;
+}
+
+/* Mensaje de error por campo específico */
+.field-error {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: #dc2626;
+  font-weight: 500;
+  padding-bottom: 10px;
+}
+
+.field-error .error-icon {
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* Mensaje de error general */
+.msg-error {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.5rem;
+  color: #991b1b;
+  font-size: 0.875rem;
+}
+
+.msg-error svg {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+}
+
+/* Animación de shake para errores */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.input-error {
+  animation: shake 0.4s ease-in-out;
+}
+
+/* Transiciones suaves */
+.input-field {
+  transition: all 0.2s ease;
+}
+
+
 /* Opciones */
 .form-options {
   display: flex;
