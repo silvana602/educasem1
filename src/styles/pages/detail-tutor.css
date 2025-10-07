@@ -1,213 +1,366 @@
-/* styles/tutorPublicProfile.css */
-
 /* ========================= */
-/* Variables */
+/* Variables Globales */
 /* ========================= */
 :root {
-  --primary-black: #000;
-  --bg-white: #fff;
-  --bg-light: #f9fafb;
-  --border-color: #e5e7eb;
-  --text-primary: #000;
-  --text-secondary: #4a5568;
-  --btn-green: #10b981;
-  --btn-green-hover: #059669;
+  --color-primary: #000;
+  --color-bg: #fff;
+  --color-bg-light: #f5f5f5;
+  --color-border: #ddd;
+  --color-text: #333;
+  --color-text-light: #666;
+  --color-green: #10b981;
+  --color-green-hover: #059669;
+  --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
   --spacing-lg: 2rem;
   --spacing-xl: 3rem;
-  --border-radius: 0.5rem;
+  --border-radius: 8px;
   --transition: all 0.3s ease;
 }
 
 /* ========================= */
-/* Container Principal */
+/* Reset y Base */
 /* ========================= */
-.tutor-public-profile {
-  max-width: 1000px;
+.tutor-profile-complete {
+  max-width: 1300px;
   margin: 0 auto;
   padding: var(--spacing-lg);
+  background: var(--color-bg);
 }
 
 /* ========================= */
-/* Header Section */
+/* HEADER SECTION */
 /* ========================= */
-.profile-header {
-  display: flex;
-  justify-content: space-between;
+.profile-main-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: var(--spacing-xl);
   margin-bottom: var(--spacing-xl);
-  align-items: flex-start;
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--color-border);
 }
 
-.profile-info {
-  flex: 1;
-}
-
-.profile-name {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 var(--spacing-sm) 0;
-}
-
-.profile-profession {
-  font-size: 1.25rem;
-  color: var(--text-primary);
-  margin: 0 0 var(--spacing-md) 0;
-  font-weight: 500;
-}
-
-.profile-stats {
+.profile-main-info {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-}
-
-.stat-item {
-  font-size: 1rem;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-/* ========================= */
-/* Profile Photo Section */
-/* ========================= */
-.profile-photo-section {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   gap: var(--spacing-sm);
 }
 
-.profile-photo {
-  width: 330px;
-  height: 330px;
-  border: 2px solid var(--primary-black);
+.profile-main-name {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.profile-main-profession {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.profile-main-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: var(--spacing-sm);
+}
+
+.profile-main-stats p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+/* Right Side */
+.profile-main-right {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.profile-main-photo {
+  width: 350px;
+  height: 350px;
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-light);
+  background: var(--color-bg-light);
   position: relative;
   overflow: hidden;
+  flex-shrink: 0; /* Evitar que se reduzca */
 }
 
-.profile-photo::before,
-.profile-photo::after {
-  content: '';
+.profile-main-photo::before,
+.profile-main-photo::after {
+  content: "";
   position: absolute;
   width: 2px;
   height: 140%;
-  background: var(--border-color);
+  background: var(--color-border);
 }
 
-.profile-photo::before {
+.profile-main-photo::before {
   transform: rotate(45deg);
 }
 
-.profile-photo::after {
+.profile-main-photo::after {
   transform: rotate(-45deg);
 }
 
-.photo-text {
+.photo-label {
   position: relative;
   z-index: 1;
-  color: var(--text-secondary);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
 }
 
-/* ========================= */
-/* Social Links */
-/* ========================= */
-.social-links {
-  display: grid;
+/* Social Icons */
+.profile-main-socials {
+  display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--spacing-sm);
   align-items: center;
 }
 
 .social-icon {
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 35px;
-  height: 35px;
-  color: var(--primary-black);
+  color: var(--color-primary);
   font-size: 1.5rem;
   transition: var(--transition);
   text-decoration: none;
+  border-radius: 50%;
 }
 
 .social-icon:hover {
-  transform: scale(1.1);
-  color: var(--btn-green);
+  color: var(--color-green);
+  transform: scale(1.15);
+  background: var(--color-bg-light);
 }
 
 /* ========================= */
-/* About Section */
+/* ABOUT SECTION */
 /* ========================= */
-.about-section {
+.profile-about-section {
   margin-bottom: var(--spacing-xl);
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* Prevenir desbordamiento */
 }
 
-.section-heading {
-  font-size: 2rem;
+.profile-section-title {
+  font-size: 1.75rem;
   font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-md);
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--color-primary);
 }
 
-.about-text {
+.profile-about-content {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  width: 100%;
+  max-width: 100%;
 }
 
-.about-text p {
+.profile-about-content p {
+  margin: 0;
   font-size: 1rem;
   line-height: 1.6;
-  color: var(--text-primary);
-  margin: 0;
+  color: var(--color-text);
   text-align: justify;
+  word-wrap: break-word; /* Permitir saltos de línea */
+  overflow-wrap: break-word; /* Romper palabras largas */
+  max-width: 100%;
 }
 
 /* ========================= */
-/* Courses Section */
+/* COURSES SECTION */
 /* ========================= */
-.courses-section {
+.profile-courses-section {
   margin-bottom: var(--spacing-xl);
+  width: 100%;
+  max-width: 100%;
 }
 
-/* ========================= */
-/* Carousel */
-/* ========================= */
-.courses-carousel {
+.profile-courses-carousel {
   position: relative;
-  margin: var(--spacing-lg) 0;
-}
-
-.courses-container {
-  overflow: hidden;
-  padding: 0 3rem;
-}
-
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-lg);
-  transition: transform 0.5s ease;
+  padding: 0 60px;
+  margin-top: var(--spacing-lg);
   width: 100%;
 }
 
-.carousel-btn {
+.profile-courses-wrapper {
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  width: 100%;
+}
+
+.profile-courses-track {
+  display: flex;
+  gap: var(--spacing-lg);
+  transition: transform 0.6s ease-in-out;
+  width: 100%;
+}
+
+/* CARD CORREGIDA - Una por vez */
+.profile-course-card {
+  min-width: 100%; /* Mostrar una card completa */
+  max-width: 100%;
+  flex-shrink: 0;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--border-radius);
+  background: var(--color-bg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.profile-course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.course-thumbnail {
+  width: 100%;
+  height: 250px; /* Altura más razonable */
+  border-bottom: 2px solid var(--color-primary);
+  background: var(--color-bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.course-thumbnail::before,
+.course-thumbnail::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 140%;
+  background: var(--color-border);
+}
+
+.course-thumbnail::before {
+  transform: rotate(45deg);
+}
+
+.course-thumbnail::after {
+  transform: rotate(-45deg);
+}
+
+.thumbnail-text {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.course-details {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  flex: 1;
+}
+
+.course-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.course-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  margin: 0;
+  flex: 1;
+}
+
+.course-stats {
+  display: flex;
+  gap: var(--spacing-md);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.course-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: var(--spacing-sm);
+  border-top: 2px solid var(--color-border);
+}
+
+.course-pricing {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.course-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.btn-purchase {
+  background: var(--color-green);
+  color: white;
+  border: 2px solid var(--color-primary);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+.btn-purchase:hover {
+  background: var(--color-green-hover);
+}
+
+.btn-save-course {
+  background: var(--color-bg);
+  border: 2px solid var(--color-primary);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.btn-save-course:hover {
+  background: #fef3c7;
+}
+
+/* Carousel Arrows */
+.carousel-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--bg-white);
-  border: 2px solid var(--primary-black);
-  width: 40px;
-  height: 40px;
+  background: var(--color-bg);
+  border: 2px solid var(--color-primary);
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   font-size: 2rem;
   cursor: pointer;
@@ -218,300 +371,144 @@
   z-index: 10;
   padding: 0;
   line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.carousel-btn:hover {
-  background: var(--primary-black);
+.carousel-arrow:hover {
+  background: var(--color-primary);
   color: white;
+  transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-btn.prev {
+.carousel-arrow.prev {
   left: 0;
 }
 
-.carousel-btn.next {
+.carousel-arrow.next {
   right: 0;
 }
 
 /* ========================= */
-/* Course Card */
+/* RESPONSIVE - TABLET */
 /* ========================= */
-.course-card-profile {
-  background: var(--bg-white);
-  border: 2px solid var(--primary-black);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.course-card-image {
-  width: 100%;
-  height: 200px;
-  border-bottom: 2px solid var(--primary-black);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-light);
-  position: relative;
-  overflow: hidden;
-}
-
-.course-card-image::before,
-.course-card-image::after {
-  content: '';
-  position: absolute;
-  width: 2px;
-  height: 140%;
-  background: var(--border-color);
-}
-
-.course-card-image::before {
-  transform: rotate(45deg);
-}
-
-.course-card-image::after {
-  transform: rotate(-45deg);
-}
-
-.image-placeholder {
-  position: relative;
-  z-index: 1;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.course-card-content {
-  padding: var(--spacing-sm);
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.course-card-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 var(--spacing-sm) 0;
-}
-
-.course-card-description {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--text-primary);
-  margin: 0 0 var(--spacing-sm) 0;
-  flex: 1;
-}
-
-.course-card-meta {
-  display: flex;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-sm);
-  font-size: 0.9rem;
-  color: var(--text-primary);
-}
-
-.meta-item {
-  display: inline-block;
-}
-
-.course-card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: var(--spacing-sm);
-  border-top: 2px solid var(--border-color);
-}
-
-.course-card-price {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.card-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.btn-comprar {
-  background: var(--btn-green);
-  color: white;
-  border: 2px solid var(--primary-black);
-  padding: 0.5rem 1.5rem;
-  border-radius: var(--border-radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  font-size: 0.9rem;
-}
-
-.btn-comprar:hover {
-  background: var(--btn-green-hover);
-}
-
-.btn-bookmark {
-  background: var(--bg-white);
-  border: 2px solid var(--primary-black);
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-  font-size: 1rem;
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-bookmark:hover {
-  background: #fef3c7;
-}
-
-/* ========================= */
-/* Carousel Dots */
-/* ========================= */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-top: var(--spacing-lg);
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--border-color);
-  border: none;
-  cursor: pointer;
-  transition: var(--transition);
-  padding: 0;
-}
-
-.dot.active {
-  background: var(--primary-black);
-  transform: scale(1.2);
-}
-
-.dot:hover {
-  background: var(--text-secondary);
-}
-
-/* ========================= */
-/* RESPONSIVE */
-/* ========================= */
-
-/* Mobile (max 640px) */
-@media (max-width: 640px) {
-  .tutor-public-profile {
-    padding: var(--spacing-sm);
-    margin-top: 70px;
+@media (max-width: 1024px) {
+  .tutor-profile-complete {
+    padding: var(--spacing-md);
   }
 
-  .profile-header {
-    flex-direction: column-reverse;
+  .profile-main-header {
+    grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
 
-  .profile-photo-section {
+  .profile-main-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 100%;
+    margin: 0 auto;
   }
 
-  .profile-photo {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    aspect-ratio: 1;
+  .profile-main-photo {
+    width: 220px;
+    height: 220px;
   }
 
-  .social-links {
+  .profile-main-socials {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .profile-name {
-    font-size: 1.75rem;
+  .profile-about-content p {
+    text-align: left;
   }
 
-  .profile-profession {
-    font-size: 1.1rem;
-  }
-
-  .section-heading {
-    font-size: 1.5rem;
-  }
-
-  .courses-container {
-    padding: 0;
-  }
-
-  .courses-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .carousel-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 1.5rem;
-  }
-
-  .carousel-btn.prev {
-    left: -10px;
-  }
-
-  .carousel-btn.next {
-    right: -10px;
-  }
-}
-
-/* Tablets (641px - 1024px) */
-@media (min-width: 641px) and (max-width: 1024px) {
-  .tutor-public-profile {
-    padding: var(--spacing-md);
-  }
-
-  .profile-header {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .profile-info {
-    text-align: center;
-  }
-
-  .profile-stats {
-    align-items: center;
-  }
-
-  .profile-photo-section {
-    align-items: center;
-  }
-
-  .social-links {
-    flex-direction: row;
-  }
-
-  .profile-name {
-    font-size: 2rem;
-  }
-
-  .courses-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Tablets horizontal (1025px - 1280px) */
-@media (min-width: 1025px) and (max-width: 1280px) {
-  .profile-photo {
-    width: 250px;
-    height: 250px;
+  .profile-courses-carousel {
+    padding: 0 50px;
   }
 }
 
 /* ========================= */
-/* Animaciones */
+/* RESPONSIVE - MOBILE */
+/* ========================= */
+@media (max-width: 640px) {
+  /* reducir padding del contenedor principal para móviles */
+  .tutor-profile-complete {
+    max-width: 100%;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Forzar cabecera del perfil en columna y sin padding lateral */
+  .profile-main-header {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    text-align: center;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+  }
+
+  .profile-main-info,
+  .profile-main-right {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Foto centrada y más pequeña */
+  .profile-main-photo {
+    width: 220px !important;
+    height: 220px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Quitar paddings laterales grandes en carousels u otros bloques */
+  .profile-courses-carousel {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .profile-courses-track {
+    gap: 0 !important;
+  }
+
+  /* Ajuste flechas del carousel para que no queden pegadas al borde */
+  .carousel-arrow.prev {
+    left: 8px !important;
+  }
+  .carousel-arrow.next {
+    right: 8px !important;
+  }
+
+  /* Reset a posibles contenedores padre que tienen padding por librería */
+  main,
+  section,
+  .container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Si queda algún desplazamiento, forzamos centrar horizontalmente */
+  .profile-main-header {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* ========================= */
+/* ANIMACIONES */
 /* ========================= */
 @keyframes fadeIn {
   from {
@@ -524,34 +521,26 @@
   }
 }
 
-.tutor-public-profile > * {
-  animation: fadeIn 0.6s ease-out;
+.tutor-profile-complete > * {
+  animation: fadeIn 0.5s ease-out;
 }
 
 /* ========================= */
-/* Accesibilidad */
+/* ACCESIBILIDAD */
 /* ========================= */
-.carousel-btn:focus,
-.btn-comprar:focus,
-.btn-bookmark:focus,
-.dot:focus,
+.carousel-arrow:focus,
+.btn-purchase:focus,
+.btn-save-course:focus,
 .social-icon:focus {
-  outline: 2px solid var(--btn-green);
+  outline: 2px solid var(--color-green);
   outline-offset: 2px;
 }
 
-/* ========================= */
-/* Estados Active */
-/* ========================= */
-.carousel-btn:active {
+.carousel-arrow:active {
   transform: translateY(-50%) scale(0.95);
 }
 
-.btn-comprar:active,
-.btn-bookmark:active {
-  transform: scale(0.95);
-}
-
-.social-icon:active {
+.btn-purchase:active,
+.btn-save-course:active {
   transform: scale(0.95);
 }

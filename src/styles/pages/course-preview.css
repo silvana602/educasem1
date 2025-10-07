@@ -46,7 +46,6 @@
 /* Layout Principal */
 /* ========================= */
 .course-page {
-  /* max-width: 900px; */
   margin: 0 auto;
   padding: var(--spacing-lg);
   background: var(--bg-white);

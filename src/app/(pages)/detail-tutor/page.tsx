@@ -1,166 +1,202 @@
 "use client";
 
-import React, { useState } from 'react';
-import { BsBookmarkFill } from 'react-icons/bs';
-import '@/styles/pages/detail-tutor.css';
-import { IoGlobeOutline, IoLogoFacebook, IoLogoInstagram, IoLogoLinkedin, IoLogoTiktok, IoLogoTwitter, IoLogoWebComponent, IoLogoYoutube } from 'react-icons/io5';
-import Link from 'next/link';
+import React, { useState, useEffect } from "react";
+import { BsBookmarkFill } from "react-icons/bs";
+import "@/styles/pages/detail-tutor.css";
+import { Footer } from "@/components";
+import Link from "next/link";
+import {
+  IoGlobeOutline,
+  IoLogoFacebook,
+  IoLogoInstagram,
+  IoLogoLinkedin,
+  IoLogoTiktok,
+  IoLogoTwitter,
+  IoLogoYoutube,
+} from "react-icons/io5";
 
-export default function TutorPublicProfile() {
+export default function DetailTutor() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   const courses = [
     {
       id: 1,
       title: "TITULO DEL CURSO",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur.",
       hours: 45,
       classes: 120,
-      price: 99
+      price: 99,
     },
     {
       id: 2,
       title: "TITULO DEL CURSO",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum.",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur.",
       hours: 30,
       classes: 85,
-      price: 79
+      price: 79,
     },
-    {
-      id: 3,
-      title: "TITULO DEL CURSO",
-      description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum.",
-      hours: 60,
-      classes: 150,
-      price: 120
-    }
   ];
 
-  const totalSlides = Math.ceil(courses.length / 2);
+  const totalSlides = courses.length;
+
+  // Auto-scroll cada 4 segundos
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, totalSlides]);
 
   const nextSlide = () => {
+    setIsAutoPlaying(false);
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   };
 
   const prevSlide = () => {
+    setIsAutoPlaying(false);
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
   return (
-    <div className="tutor-public-profile">
-      {/* Header Section */}
-      <div className="profile-header">
-        <div className="profile-info">
-          <h1 className="profile-name">Nombre del Tutor</h1>
-          <p className="profile-profession">Profesion del tutor</p>
-          
-          <div className="profile-stats">
-            <p className="stat-item"># de estudiantes</p>
-            <p className="stat-item"># de cursos</p>
-          </div>
-        </div>
+    <>
+      <div className="tutor-profile-complete">
+        {/* Header Section */}
+        <div className="profile-main-header">
+          {/* Left Side - Info */}
+          <div className="profile-main-info">
+            <h1 className="profile-main-name">Nombre del Tutor</h1>
+            <p className="profile-main-profession">Profesion del tutor</p>
 
-        <div className="profile-photo-section">
-          <div className="profile-photo">
-            <span className="photo-text">foto del tutor</span>
-          </div>
-          
-          <div className="social-links">
-            <Link href="#" className="social-icon"><IoGlobeOutline /></Link>
-            <Link href="#" className="social-icon"><IoLogoLinkedin /></Link>
-            <Link href="#" className="social-icon"><IoLogoFacebook /></Link>
-            <Link href="#" className="social-icon"><IoLogoTwitter /></Link>
-            <Link href="#" className="social-icon"><IoLogoInstagram /></Link>
-            <Link href="#" className="social-icon"><IoLogoYoutube /></Link>
-            <Link href="#" className="social-icon"><IoLogoTiktok /></Link>
-          </div>
-        </div>
-      </div>
-
-      {/* About Section */}
-      <section className="about-section">
-        <h2 className="section-heading">Sobre mi</h2>
-        <div className="about-text">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-            optio, eaque rerum! Provident similique accusantium nemo autem.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-            optio, eaque rerum! Provident similique accusantium nemo autem.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,
-            molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum
-            numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium
-            optio, eaque rerum! Provident similique accusantium nemo autem.
-          </p>
-        </div>
-      </section>
-
-      {/* Courses Section */}
-      <section className="courses-section">
-        <h2 className="section-heading">Mis cursos ( # )</h2>
-        
-        <div className="courses-carousel">
-          <button className="carousel-btn prev" onClick={prevSlide}>
-            ‹
-          </button>
-
-          <div className="courses-container">
-            <div className="courses-grid"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-            >
-              {courses.map((course) => (
-                <div key={course.id} className="course-card-profile">
-                  <div className="course-card-image">
-                    <span className="image-placeholder">foto del curso</span>
-                  </div>
-                  
-                  <div className="course-card-content">
-                    <h3 className="course-card-title">{course.title}</h3>
-                    <p className="course-card-description">{course.description}</p>
-                    
-                    <div className="course-card-meta">
-                      <span className="meta-item"># horas</span>
-                      <span className="meta-item"># clases</span>
-                    </div>
-                    
-                    <div className="course-card-footer">
-                      <span className="course-card-price">PRECIO $</span>
-                      <div className="card-actions">
-                        <button className="btn-comprar">Comprar</button>
-                        <button className="btn-bookmark">
-                          <BsBookmarkFill />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="profile-main-stats">
+              <p># de estudiantes</p>
+              <p># de cursos</p>
             </div>
           </div>
 
-          <button className="carousel-btn next" onClick={nextSlide}>
-            ›
-          </button>
+          {/* Right Side - Photo and Social */}
+          <div className="profile-main-right">
+            <div className="profile-main-photo">
+              <span className="photo-label">foto del tutor</span>
+            </div>
+
+            <div className="profile-main-socials">
+              <Link href="#" className="social-icon">
+                <IoGlobeOutline />
+              </Link>
+              <Link href="#" className="social-icon">
+                <IoLogoLinkedin />
+              </Link>
+              <Link href="#" className="social-icon">
+                <IoLogoFacebook />
+              </Link>
+              <Link href="#" className="social-icon">
+                <IoLogoTwitter />
+              </Link>
+              <Link href="#" className="social-icon">
+                <IoLogoInstagram />
+              </Link>
+              <Link href="#" className="social-icon">
+                <IoLogoYoutube />
+              </Link>
+              <Link href="#" className="social-icon">
+                <IoLogoTiktok />
+              </Link>
+            </div>
+          </div>
         </div>
 
-        {/* Dots Indicator */}
-        <div className="carousel-dots">
-          {Array.from({ length: totalSlides }).map((_, index) => (
-            <button
-              key={index}
-              className={`dot ${currentSlide === index ? 'active' : ''}`}
-              onClick={() => setCurrentSlide(index)}
-            />
-          ))}
-        </div>
-      </section>
-    </div>
+        {/* About Section */}
+        <section className="profile-about-section">
+          <h2 className="profile-section-title">Sobre mi</h2>
+          <div className="profile-about-content">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+              mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+              voluptatum laborum numquam blanditiis harum quisquam eius sed odit
+              fugiat iusto fuga praesentium optio, eaque rerum! Provident
+              similique accusantium nemo autem.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+              mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+              voluptatum laborum numquam blanditiis harum quisquam eius sed odit
+              fugiat iusto fuga praesentium optio, eaque rerum! Provident
+              similique accusantium nemo autem.
+            </p>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+              mollitia, molestiae quas vel sint commodi repudiandae consequuntur
+              voluptatum laborum numquam blanditiis harum quisquam eius sed odit
+              fugiat iusto fuga praesentium optio, eaque rerum! Provident
+              similique accusantium nemo autem.
+            </p>
+          </div>
+        </section>
+
+        {/* Courses Section */}
+        <section className="profile-courses-section">
+          <h2 className="profile-section-title">Mis cursos ( # )</h2>
+
+          <div
+            className="profile-courses-carousel"
+            onMouseEnter={() => setIsAutoPlaying(false)}
+            onMouseLeave={() => setIsAutoPlaying(true)}
+          >
+            <button className="carousel-arrow prev" onClick={prevSlide}>
+              ‹
+            </button>
+
+            <div className="profile-courses-wrapper">
+              <div
+                className="profile-courses-track"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {courses.map((course) => (
+                  <div key={course.id} className="profile-course-card">
+                    <div className="course-thumbnail">
+                      <span className="thumbnail-text">foto del curso</span>
+                    </div>
+
+                    <div className="course-details">
+                      <h3 className="course-name">{course.title}</h3>
+                      <p className="course-desc">{course.description}</p>
+
+                      <div className="course-stats">
+                        <span># horas</span>
+                        <span># clases</span>
+                      </div>
+
+                      <div className="course-bottom">
+                        <span className="course-pricing">PRECIO $</span>
+                        <div className="course-actions">
+                          <button className="btn-purchase">Comprar</button>
+                          <button title="btn" className="btn-save-course">
+                            <BsBookmarkFill />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button className="carousel-arrow next" onClick={nextSlide}>
+              ›
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <Footer />
+      </footer>
+    </>
   );
 }
