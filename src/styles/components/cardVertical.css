@@ -1,0 +1,454 @@
+/* styles/courseCardDetail.css */
+
+/* ========================= */
+/* Variables */
+/* ========================= */
+:root {
+  --card-primary: #000;
+  --card-bg: #fff;
+  --card-bg-light: #f5f5f5;
+  --card-border: #ddd;
+  --card-text: #333;
+  --card-text-light: #666;
+  --card-blue: #2563eb;
+  --card-green: #10b981;
+  --spacing: 1rem;
+  --spacing-sm: 0.75rem;
+  --spacing-xs: 0.5rem;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+/* ========================= */
+/* Card Container */
+/* ========================= */
+.course-card-detail {
+  max-width: 400px;
+  background: var(--card-bg);
+  border: 2px solid var(--card-primary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+}
+
+.course-card-detail:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* ========================= */
+/* Image Section */
+/* ========================= */
+.course-card-image-detail {
+  width: 100%;
+  height: 220px;
+  background: var(--card-bg-light);
+  border-bottom: 2px solid var(--card-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card-image-detail::before,
+.course-card-image-detail::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 140%;
+  background: var(--card-border);
+}
+
+.course-card-image-detail::before {
+  transform: rotate(45deg);
+}
+
+.course-card-image-detail::after {
+  transform: rotate(-45deg);
+}
+
+.image-label {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9rem;
+  color: var(--card-text-light);
+}
+
+/* ========================= */
+/* Card Body */
+/* ========================= */
+.course-card-body {
+  padding: var(--spacing);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+}
+
+/* ========================= */
+/* Header Section */
+/* ========================= */
+.course-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+}
+
+.course-card-titles {
+  flex: 1;
+}
+
+.course-card-title-main {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-xs) 0;
+  color: var(--card-primary);
+  line-height: 1.3;
+}
+
+.course-card-tutor {
+  font-size: 0.95rem;
+  margin: 0;
+  color: var(--card-text);
+}
+
+.btn-tag-course {
+  background: var(--card-bg);
+  border: 2px solid var(--card-primary);
+  padding: 0.4rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.btn-tag-course:hover {
+  background: rgba(212, 244, 187, 0.93);
+}
+
+/* ========================= */
+/* Description */
+/* ========================= */
+.course-card-description-full {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--card-text);
+  margin: 0;
+  text-align: justify;
+}
+
+/* ========================= */
+/* Info Section */
+/* ========================= */
+.course-card-info {
+  display: flex;
+  gap: var(--spacing);
+  padding: var(--spacing-sm) 0;
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.info-item {
+  font-size: 0.9rem;
+  color: var(--card-text);
+  font-weight: 500;
+}
+
+/* ========================= */
+/* Price */
+/* ========================= */
+.course-card-price-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--card-primary);
+}
+
+/* ========================= */
+/* Main Actions */
+/* ========================= */
+.course-card-actions-main {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.btn-buy-course {
+  flex: 1;
+  background: var(--card-bg);
+  border: 2px solid var(--card-primary);
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-buy-course:hover {
+  background: var(--card-primary);
+  color: white;
+}
+
+.btn-bookmark-course {
+  background: var(--card-bg);
+  border: 2px solid var(--card-primary);
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-bookmark-course:hover {
+  background: #fef3c7;
+}
+
+/* ========================= */
+/* Progress Bar */
+/* ========================= */
+.course-progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing);
+  background: var(--card-bg-light);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--card-border);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--card-text);
+  letter-spacing: 0.3px;
+}
+
+.course-progress-text {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--card-secondary);
+}
+
+.course-progress-bar {
+  height: 10px;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.course-progress-fill {
+  height: 100%;
+  background: #666cb4ff;
+  border-radius: 20px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-shimmer {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* ========================= */
+/* Secondary Actions */
+/* ========================= */
+.course-card-actions-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.btn-continue-course,
+.btn-certificate-course {
+  width: 100%;
+  background: rgba(148, 162, 215, 1);
+  border: 2px solid #3c467dff;
+  padding: 0.65rem 1rem;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-continue-course:hover {
+  background: var(--card-primary);
+  color: white;
+}
+
+.btn-certificate-course:hover {
+  background: var(--card-bg-light);
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
+/* Mobile (max 480px) */
+@media (max-width: 480px) {
+  .course-card-detail {
+    max-width: 100%;
+  }
+
+  .course-card-image-detail {
+    height: 180px;
+  }
+
+  .course-card-body {
+    padding: var(--spacing-sm);
+  }
+
+  .course-card-title-main {
+    font-size: 1.1rem;
+  }
+
+  .course-card-tutor {
+    font-size: 0.85rem;
+  }
+
+  .btn-tag-course {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .course-card-description-full {
+    font-size: 0.85rem;
+  }
+
+  .course-card-info {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .info-item {
+    font-size: 0.85rem;
+  }
+
+  .course-card-price-text {
+    font-size: 1rem;
+  }
+
+  .btn-buy-course,
+  .btn-continue-course,
+  .btn-certificate-course {
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+  }
+}
+
+/* Tablet (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .course-card-detail {
+    max-width: 100%;
+  }
+
+  .course-card-image-detail {
+    height: 200px;
+  }
+}
+
+/* ========================= */
+/* Animaciones */
+/* ========================= */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.course-card-detail {
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes progressLoad {
+  from {
+    width: 0;
+  }
+}
+
+.course-progress-fill {
+  animation: progressLoad 1s ease-out;
+}
+
+/* ========================= */
+/* Estados Hover y Focus */
+/* ========================= */
+.btn-buy-course:focus,
+.btn-bookmark-course:focus,
+.btn-continue-course:focus,
+.btn-certificate-course:focus,
+.btn-tag-course:focus {
+  outline: 2px solid var(--card-blue);
+  outline-offset: 2px;
+}
+
+.btn-buy-course:active,
+.btn-continue-course:active,
+.btn-certificate-course:active,
+.btn-tag-course:active {
+  transform: scale(0.98);
+}
+
+.btn-bookmark-course:active {
+  transform: scale(0.95);
+}
+
+/* ========================= */
+/* Variantes de Estado */
+/* ========================= */
+
+/* Curso completado */
+.course-card-detail.completed .course-progress-fill {
+  background: var(--card-green);
+}
+
+.course-card-detail.completed .btn-continue-course {
+  display: none;
+}
+
+/* Curso no iniciado */
+.course-card-detail.not-started .course-progress-container,
+.course-card-detail.not-started .btn-continue-course,
+.course-card-detail.not-started .btn-certificate-course {
+  display: none;
+}

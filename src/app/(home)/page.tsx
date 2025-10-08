@@ -14,6 +14,7 @@ import {
 } from "react-icons/io5";
 import Link from "next/link";
 import Image from "next/image";
+import CourseCardDetail from "@/components/common/cardVertical";
 
 export default function HomePage() {
   return (
@@ -127,25 +128,7 @@ export default function HomePage() {
           </div>
           <div className="courses-grid">
             {[1, 2, 3].map((course) => (
-              <div key={course} className="course-card">
-                <div className="course-image">
-                  <Image
-                    src="/imgs/portada.jpg"
-                    alt="portada"
-                    width={500}
-                    height={200}
-                  />
-                </div>
-                <div className="course-content">
-                  <h3 className="course-title">TÍTULO DEL CURSO</h3>
-                  <span className="course-tutor">Tutor de curso</span>
-                  <div className="course-info">
-                    <span className="course-theme">Tema</span>
-                    <span className="course-price">$99</span>
-                  </div>
-                  <button className="enroll-button">Inscribirse</button>
-                </div>
-              </div>
+              <CourseCardDetail key={course} />
             ))}
           </div>
         </section>

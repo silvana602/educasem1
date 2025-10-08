@@ -14,54 +14,18 @@ import {
   IoLogoTwitter,
   IoLogoYoutube,
 } from "react-icons/io5";
+import CourseCardDetail from "@/components/common/cardVertical";
 
 export default function DetailTutor() {
+  const repeatCount = 6;
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  const courses = [
-    {
-      id: 1,
-      title: "TITULO DEL CURSO",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur.",
-      hours: 45,
-      classes: 120,
-      price: 99,
-    },
-    {
-      id: 2,
-      title: "TITULO DEL CURSO",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur.",
-      hours: 30,
-      classes: 85,
-      price: 79,
-    },
-  ];
-
-  const totalSlides = courses.length;
-
-  // Auto-scroll cada 4 segundos
   useEffect(() => {
-    if (!isAutoPlaying) return;
-
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 4000);
-
+      setCurrentSlide((prev) => (prev + 1) % repeatCount);
+    }, 3000);
     return () => clearInterval(interval);
-  }, [isAutoPlaying, totalSlides]);
-
-  const nextSlide = () => {
-    setIsAutoPlaying(false);
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  };
-
-  const prevSlide = () => {
-    setIsAutoPlaying(false);
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  };
+  }, [repeatCount]);
 
   return (
     <>
@@ -143,53 +107,17 @@ export default function DetailTutor() {
         <section className="profile-courses-section">
           <h2 className="profile-section-title">Mis cursos ( # )</h2>
 
-          <div
-            className="profile-courses-carousel"
-            onMouseEnter={() => setIsAutoPlaying(false)}
-            onMouseLeave={() => setIsAutoPlaying(true)}
-          >
-            <button className="carousel-arrow prev" onClick={prevSlide}>
-              ‹
-            </button>
-
-            <div className="profile-courses-wrapper">
-              <div
-                className="profile-courses-track"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-              >
-                {courses.map((course) => (
-                  <div key={course.id} className="profile-course-card">
-                    <div className="course-thumbnail">
-                      <span className="thumbnail-text">foto del curso</span>
-                    </div>
-
-                    <div className="course-details">
-                      <h3 className="course-name">{course.title}</h3>
-                      <p className="course-desc">{course.description}</p>
-
-                      <div className="course-stats">
-                        <span># horas</span>
-                        <span># clases</span>
-                      </div>
-
-                      <div className="course-bottom">
-                        <span className="course-pricing">PRECIO $</span>
-                        <div className="course-actions">
-                          <button className="btn-purchase">Comprar</button>
-                          <button title="btn" className="btn-save-course">
-                            <BsBookmarkFill />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          <div className="relative w-full overflow-hidden group">
+            <div
+              className="flex transition-transform duration-700 ease-in-out"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {[...Array(repeatCount)].map((_, i) => (
+                <div key={i} className="w-full flex-shrink-0 px-2">
+                  <CourseCardDetail />
+                </div>
+              ))}
             </div>
-
-            <button className="carousel-arrow next" onClick={nextSlide}>
-              ›
-            </button>
           </div>
         </section>
       </div>
